@@ -6,7 +6,8 @@ type reservationsType = {
     date: Date,
     time: String,
     noOfPersons: Number,
-    reservedBy: mongoose.Schema.Types.ObjectId
+    reservedBy: mongoose.Schema.Types.ObjectId,
+    approved: Boolean
 }
 
 const reservationSchema = new mongoose.Schema<reservationsType>({
@@ -33,6 +34,10 @@ const reservationSchema = new mongoose.Schema<reservationsType>({
     reservedBy:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
+    },
+    approved:{
+        type: Boolean,
+        default: false
     }
 },  
 {timestamps: true}
