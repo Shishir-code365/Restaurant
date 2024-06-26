@@ -38,11 +38,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-const PORT = (process.env.PORT as string) || 4000;
+const PORT = 5677;
 const server = http.createServer(app);
 
 connectDb()
   .then(() => {
-    server.listen(PORT, () => console.log("server is listening to port 4000"));
+    server.listen(PORT, () => console.log("server is listening to port",PORT));
   })
   .catch((err) => console.log("error", err));
