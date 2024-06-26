@@ -5,7 +5,7 @@ import { menuModel } from "../models/menu.model";
 
 const menuCreate = async (req: any, res: Response, next: NextFunction) => {
     try {
-      const { name, price,imageURL } = req.body;
+      const { name, price,imageURL,type } = req.body;
       const adminID = req.admin.id; 
       if (!name || !price) {
         return res.status(400).json({
@@ -23,7 +23,8 @@ const menuCreate = async (req: any, res: Response, next: NextFunction) => {
         name,
         price,
         createdBy: adminID,
-        imageURL
+        imageURL,
+        type
       });
   
       if (!menuCreated) {

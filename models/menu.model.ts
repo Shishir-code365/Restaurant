@@ -4,6 +4,7 @@ type menuType = {
     name:String,
     price: Number,
     createdBy: String,
+    type: String,
     imageURL: String
 }
 const menuSchema = new mongoose.Schema<menuType>({
@@ -15,6 +16,10 @@ const menuSchema = new mongoose.Schema<menuType>({
         type: Number,
         require: true
     },
+    type: { 
+        type: String, 
+        enum: ['appetizers', 'main courses', 'desserts', 'drinks'],
+         required: true },
     imageURL:{
         type: String
     },
