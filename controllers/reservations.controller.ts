@@ -113,5 +113,50 @@ const approvedReservations = async (req: Request,res:Response,next:NextFunction)
       }
 }
 
+const updateReservation = async (req:any,res:Response,next:NextFunction)=>{
+    try{
+        const reservationID = req.params.id;
+        const userID = req.user.id;
+        const {name,email,date,time,noOfPersons} = req.body;
+        const user = await userModel.findById(userID);
 
-export {reservation, getAllReservation,deleteReservation,adminApprove,approvedReservations};
+        if(!user)
+            {
+                return res.status(404).json("Cannot find user")
+            }
+        
+        const checkReservation = await reservationModel.findById(reservationID);
+        if(!checkReservation)
+            {
+                return res.status(404).json("Cannot find reservation")
+            }
+        if(checkReservation.reservedBy.toString()!==userID)
+            {
+                return res.status(404).json("Not authorized to update the reservation!!!")
+            }
+        if(checkReservation.approved)
+            {
+                return res.status(403).json({ message: "Cannot update an approved reservation" });
+            }
+
+        const reservationUpdate = await reservationModel.updateOne(
+            {_id: reservationID},
+            {name,email,date,time, noOfPersons}
+        );
+        if(reservationUpdate.modifiedCount>0)
+            {
+                return res.status(200).json({message: "Reservation updated",reservationUpdate})
+            }
+            else if (reservationUpdate.modifiedCount === 0) {
+                return res.status(404).json({ message: "No changes made" });}
+
+        return res.status(404).json("Cannot update reservation")
+    }
+    catch (error)
+    {
+        console.error("Error", error);
+        res.status(500).json({ message: "An error occurred" });
+    }
+}
+
+export {reservation, getAllReservation,deleteReservation,adminApprove,approvedReservations,updateReservation};

@@ -8,4 +8,5 @@ router.route("/createmenu").post(tokenAuth_1.tokenExtractor, tokenAuth_1.verifyT
 router.route("/:menuID/updatemenu").put(tokenAuth_1.tokenExtractor, tokenAuth_1.verifyToken, tokenAuth_1.adminScope, menu_controller_1.menuUpdate);
 router.route("/:menuID/deletemenu").delete(tokenAuth_1.tokenExtractor, tokenAuth_1.verifyToken, tokenAuth_1.adminScope, menu_controller_1.menuDelete);
 router.route("/allmenu").get(menu_controller_1.menuAll);
+router.route("/:id").get(menu_controller_1.menubyID);
 exports.default = router;

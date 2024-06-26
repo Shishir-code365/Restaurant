@@ -3,13 +3,9 @@ import { adminModel } from "../models/admin.model";
 import { menuModel } from "../models/menu.model";
 
 
-
-
-
-
 const menuCreate = async (req: any, res: Response, next: NextFunction) => {
     try {
-      const { name, price } = req.body;
+      const { name, price,imageURL } = req.body;
       const adminID = req.admin.id; 
       if (!name || !price) {
         return res.status(400).json({
@@ -22,11 +18,12 @@ const menuCreate = async (req: any, res: Response, next: NextFunction) => {
       if (!admin) {
         return res.status(404).json({ success: false, message: "Admin not found" });
       }
-  
+
       const menuCreated = await menuModel.create({
         name,
         price,
         createdBy: adminID,
+        imageURL
       });
   
       if (!menuCreated) {
@@ -111,6 +108,19 @@ const menuCreate = async (req: any, res: Response, next: NextFunction) => {
     }
   };
 
+  const menubyID =  async (req: Request, res: Response, next: NextFunction) => {  
+
+    const menuID = req.params.id;
+
+    const findMenu = await menuModel.findById(menuID);
+
+    if(!findMenu)
+      {
+        return res.status(400).json("Cannot find menu with that id")
+      }
+    return res.status(200).json({message:"Menu:",findMenu})
+  }
 
 
-  export {menuCreate,menuUpdate,menuDelete,menuAll};
+
+  export {menuCreate,menuUpdate,menuDelete,menuAll,menubyID};

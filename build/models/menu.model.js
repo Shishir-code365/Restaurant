@@ -34,6 +34,9 @@ const menuSchema = new mongoose_1.default.Schema({
         type: Number,
         require: true
     },
+    imageURL: {
+        type: String
+    },
     createdBy: {
         type: String,
     }

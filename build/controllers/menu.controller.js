@@ -9,12 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.menuAll = exports.menuDelete = exports.menuUpdate = exports.menuCreate = void 0;
+exports.menubyID = exports.menuAll = exports.menuDelete = exports.menuUpdate = exports.menuCreate = void 0;
 const admin_model_1 = require("../models/admin.model");
 const menu_model_1 = require("../models/menu.model");
 const menuCreate = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, price } = req.body;
+        const { name, price, imageURL } = req.body;
         const adminID = req.admin.id;
         if (!name || !price) {
             return res.status(400).json({
@@ -30,6 +30,7 @@ const menuCreate = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
             name,
             price,
             createdBy: adminID,
+            imageURL
         });
         if (!menuCreated) {
             return res.status(403).json({ success: false, message: "Cannot create menu" });
@@ -108,3 +109,12 @@ const menuAll = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.menuAll = menuAll;
+const menubyID = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const menuID = req.params.id;
+    const findMenu = yield menu_model_1.menuModel.findById(menuID);
+    if (!findMenu) {
+        return res.status(400).json("Cannot find menu with that id");
+    }
+    return res.status(200).json({ message: "Menu:", findMenu });
+});
+exports.menubyID = menubyID;

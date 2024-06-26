@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.approvedReservations = exports.adminApprove = exports.deleteReservation = exports.getAllReservation = exports.reservation = void 0;
+exports.updateReservation = exports.approvedReservations = exports.adminApprove = exports.deleteReservation = exports.getAllReservation = exports.reservation = void 0;
 const user_model_1 = require("../models/user.model");
 const reservations_model_1 = require("../models/reservations.model");
 const admin_model_1 = require("../models/admin.model");
@@ -99,3 +99,37 @@ const approvedReservations = (req, res, next) => __awaiter(void 0, void 0, void 
     }
 });
 exports.approvedReservations = approvedReservations;
+const updateReservation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const reservationID = req.params.id;
+        const userID = req.user.id;
+        const { name, email, date, time, noOfPersons } = req.body;
+        const user = yield user_model_1.userModel.findById(userID);
+        if (!user) {
+            return res.status(404).json("Cannot find user");
+        }
+        const checkReservation = yield reservations_model_1.reservationModel.findById(reservationID);
+        if (!checkReservation) {
+            return res.status(404).json("Cannot find reservation");
+        }
+        if (checkReservation.reservedBy.toString() !== userID) {
+            return res.status(404).json("Not authorized to update the reservation!!!");
+        }
+        if (checkReservation.approved) {
+            return res.status(403).json({ message: "Cannot update an approved reservation" });
+        }
+        const reservationUpdate = yield reservations_model_1.reservationModel.updateOne({ _id: reservationID }, { name, email, date, time, noOfPersons });
+        if (reservationUpdate.modifiedCount > 0) {
+            return res.status(200).json({ message: "Reservation updated", reservationUpdate });
+        }
+        else if (reservationUpdate.modifiedCount === 0) {
+            return res.status(404).json({ message: "No changes made" });
+        }
+        return res.status(404).json("Cannot update reservation");
+    }
+    catch (error) {
+        console.error("Error", error);
+        res.status(500).json({ message: "An error occurred" });
+    }
+});
+exports.updateReservation = updateReservation;

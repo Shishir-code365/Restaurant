@@ -3,7 +3,8 @@ import mongoose, { model } from "mongoose";
 type menuType = {
     name:String,
     price: Number,
-    createdBy: String
+    createdBy: String,
+    imageURL: String
 }
 const menuSchema = new mongoose.Schema<menuType>({
     name:{
@@ -13,6 +14,9 @@ const menuSchema = new mongoose.Schema<menuType>({
     price:{
         type: Number,
         require: true
+    },
+    imageURL:{
+        type: String
     },
     createdBy:{
         type: String,
