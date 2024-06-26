@@ -24,9 +24,6 @@ const corsOptions = {
     "https://beta.codynn.com",
   ],
   credentials: true,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  preflightContinue: false,
-  optionsSuccessStatus: 204
 };
 
 app.use(cors(corsOptions));
