@@ -11,7 +11,7 @@ const reservation = async (req:any,res:Response, next:NextFunction)=>{
 
     if(!user)
         {
-            return res.status(400).json("Cannot find the user")
+            return res.status(400).json({message:"Cannot find the user"})
         }
     
     const {name,email,date,time,noOfPersons} = req.body;
@@ -26,9 +26,9 @@ const reservation = async (req:any,res:Response, next:NextFunction)=>{
     });
     if(!makeReservation)
         {
-            return res.status(403).json("Cannot make reservation")
+            return res.status(403).json({message:"Cannot make reservation"})
         }
-    return res.status(200).json("Reservation made successfully!!")
+    return res.status(200).json({message:"Reservation made successfully!!"})
 }
 
 const getAllReservation = async(req:Request,res:Response,next:NextFunction)=>{
@@ -38,11 +38,11 @@ const getAllReservation = async(req:Request,res:Response,next:NextFunction)=>{
         {
             return res.status(200).json({reservations})
         }
-    return res.status(403).json("No reservations to show")
+    return res.status(403).json({message:"No reservations to show"})
     }
     catch(error)
     {
-        return res.status(404).json("error")
+        return res.status(404).json({message:"error"})
     }
 }
 
@@ -54,18 +54,18 @@ const deleteReservation  = async (req:any, res:Response, next:NextFunction)=>{
 
     if(!user)
         {
-            return res.status(404).json("Cannot find user")
+            return res.status(404).json({message:"Cannot find user"})
         }
     
     const checkReservation = await reservationModel.findById(reservationID);
     if(!checkReservation)
         {
-            return res.status(404).json("Cannot find reservation")
+            return res.status(404).json({message:"Cannot find reservation"})
         }
     // console.log(checkReservation.reservedBy.toString());
     if(checkReservation.reservedBy.toString()!==userID)
         {
-            return res.status(404).json("Not authorized to delete the reservation!!!")
+            return res.status(404).json({message:"Not authorized to delete the reservation!!!"})
         }
     if(checkReservation.approved)
         {
@@ -74,7 +74,7 @@ const deleteReservation  = async (req:any, res:Response, next:NextFunction)=>{
     const reservationDelete = await reservationModel.findByIdAndDelete(reservationID);
     if(!reservationDelete)
         {
-            return res.status(404).json("Cannot delete reservation")
+            return res.status(404).json({message:"Cannot delete reservation"})
         }
     return res.status(200).json({message:"Reservation Deleted Successfully!!",reservationID});
 
@@ -86,13 +86,13 @@ const adminApprove = async(req:any,res:Response,next:NextFunction)=>{
     const admin = await adminModel.findById(adminID);
     if(!admin)
         {
-            return res.status(404).json("Admin doesnot exist!!")
+            return res.status(404).json({message:"Admin doesnot exist!!"})
         }
     
         const reservation = await reservationModel.findById(reservationID)
         if(!reservation)
             {
-                return res.status(404).json("Reservation not found")
+                return res.status(404).json({message:"Reservation not found"})
             }
     
         reservation.approved = true;
@@ -122,17 +122,17 @@ const updateReservation = async (req:any,res:Response,next:NextFunction)=>{
 
         if(!user)
             {
-                return res.status(404).json("Cannot find user")
+                return res.status(404).json({message:"Cannot find user"})
             }
         
         const checkReservation = await reservationModel.findById(reservationID);
         if(!checkReservation)
             {
-                return res.status(404).json("Cannot find reservation")
+                return res.status(404).json({message:"Cannot find reservation"})
             }
         if(checkReservation.reservedBy.toString()!==userID)
             {
-                return res.status(404).json("Not authorized to update the reservation!!!")
+                return res.status(404).json({message:"Not authorized to update the reservation!!!"})
             }
         if(checkReservation.approved)
             {
@@ -150,7 +150,7 @@ const updateReservation = async (req:any,res:Response,next:NextFunction)=>{
             else if (reservationUpdate.modifiedCount === 0) {
                 return res.status(404).json({ message: "No changes made" });}
 
-        return res.status(404).json("Cannot update reservation")
+        return res.status(404).json({message:"Cannot update reservation"})
     }
     catch (error)
     {

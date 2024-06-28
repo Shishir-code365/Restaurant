@@ -105,7 +105,7 @@ const menuCreate = async (req: any, res: Response, next: NextFunction) => {
       }
     } catch (error) {
       console.log("Error: ", error);
-      return res.status(403).json("Error");
+      return res.status(403).json({message: "Error"});
     }
   };
 
@@ -117,7 +117,7 @@ const menuCreate = async (req: any, res: Response, next: NextFunction) => {
 
     if(!findMenu)
       {
-        return res.status(400).json("Cannot find menu with that id")
+        return res.status(400).json({message:"Cannot find menu with that id"})
       }
     return res.status(200).json({message:"Menu:",findMenu})
   }
