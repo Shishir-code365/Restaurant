@@ -10,7 +10,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 
   const userFound = await userModel.findOne({ email });
   if (userFound) {
-    return res.status(StatusCodes.BAD_REQUEST).json("email already exists!");
+    return res.status(StatusCodes.BAD_REQUEST).json({message:"email already exists!"});
   }
 
   const hash = await bcrypt.hash(password, 10);
@@ -21,7 +21,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
   }).save();
 
   if (!savedUser) {
-    return res.status(StatusCodes.BAD_REQUEST).json("fail to create user!");
+    return res.status(StatusCodes.BAD_REQUEST).json({message:"fail to create user!"});
   }
 
   return res.status(200).json({message:"user created successful",savedUser});

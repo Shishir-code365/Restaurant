@@ -64,7 +64,7 @@ const updateReview = async (req: any, res: Response, next: NextFunction) => {
       const findReview = await reviewModel.findById(reviewID)
       if(!findReview)
         {
-            return res.status(404).json("No review with that id exists!!")
+            return res.status(404).json({ message: "No review with that id exists!!"})
         }
         if (findReview.createdBy.toString() !== userID) {
             return res.status(403).json({ message: 'You are not authorized to update this review' });
@@ -99,18 +99,18 @@ const updateReview = async (req: any, res: Response, next: NextFunction) => {
     const checkReview = await reviewModel.findById(reviewID);
     if(!checkReview)
         {
-            return res.status(404).json("Cannot find review")
+            return res.status(404).json({message:"Cannot find review"})
         }
 
     if(checkReview.createdBy.toString()!==userID)
         {
-            return res.status(404).json("Not authorized to delete the review!!!")
+            return res.status(404).json({ message:"Not authorized to delete the review!!!"})
         }
 
     const reviewDelete = await reviewModel.findByIdAndDelete(reviewID);
     if(!reviewDelete)
         {
-            return res.status(404).json("Cannot delete review")
+            return res.status(404).json({message:"Cannot delete review"})
         }
     return res.status(200).json({message:"Review Deleted Successfully!!",reviewID});
 
