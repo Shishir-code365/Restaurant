@@ -4,13 +4,15 @@ import userRouter from "./user.routes";
 import menuRouter from "./menu.routes";
 import reservationRouter from "./reservation.routes";
 import contactRouter from "./contact.routes";
-import reviewRouter from "./review.routes"
+import reviewRouter from "./review.routes";
+import eventRouter from "./event.routes";
+
 
 const mainRouter = Router();
 
 // mainRouter.get("/", (req, res) => {
 //   res.send("wo wo wold");
 // });
-mainRouter.use("/admin", adminRouter).use("/user",userRouter).use("/menu",menuRouter).use("/reservation",reservationRouter).use("/contact",contactRouter).use("/review",reviewRouter)
+mainRouter.use("/admin", adminRouter).use("/user",userRouter).use("/menu",menuRouter).use("/reservation",reservationRouter).use("/contact",contactRouter).use("/review",reviewRouter).use("/events",eventRouter)
 
 export default mainRouter;
