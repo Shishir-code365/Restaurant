@@ -4,7 +4,7 @@ import { tokenExtractor,verifyToken } from "../middleware/tokenAuth";
 
 const router = Router();
 
-router.route("/createreview").post(tokenExtractor,verifyToken,reviewCreate);
+router.route("/createreview").post(reviewCreate);
 router.route("/getreview").get(getAllReviews);
 router.route("/getreview/:id").get(getReviewById);
 router.route("/updatereview/:id").put(tokenExtractor,verifyToken,updateReview);
