@@ -1,10 +1,10 @@
-import mongoose, { model } from "mongoose";
-
+import mongoose, { Schema, model } from "mongoose";
+import { categoryModel } from "./category.model";
 type menuType = {
     name:String,
     price: Number,
     createdBy: String,
-    type: String,
+    category: mongoose.Schema.Types.ObjectId ,
     imageURL: String
 }
 const menuSchema = new mongoose.Schema<menuType>({
@@ -16,10 +16,11 @@ const menuSchema = new mongoose.Schema<menuType>({
         type: Number,
         require: true
     },
-    type: { 
-        type: String, 
-        enum: ['appetizers', 'main courses', 'desserts', 'drinks'],
-         required: true },
+    category: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "category",
+         required: true 
+        },
     imageURL:{
         type: String
     },

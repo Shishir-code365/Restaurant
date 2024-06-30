@@ -5,7 +5,7 @@ import { menuModel } from "../models/menu.model";
 
 const menuCreate = async (req: any, res: Response, next: NextFunction) => {
     try {
-      const { name, price,imageURL,type } = req.body;
+      const { name, price,imageURL,category } = req.body;
       const adminID = req.admin.id; 
       if (!name || !price) {
         return res.status(400).json({
@@ -24,7 +24,7 @@ const menuCreate = async (req: any, res: Response, next: NextFunction) => {
         price,
         createdBy: adminID,
         imageURL,
-        type
+        category
       });
   
       if (!menuCreated) {
@@ -45,12 +45,12 @@ const menuCreate = async (req: any, res: Response, next: NextFunction) => {
 
   const menuUpdate = async (req: any, res: Response, next: NextFunction) => {
     try {
-      const { name, price} = req.body;
+      const { name, price, category} = req.body;
       const menuID = req.params.menuID;
         // console.log(menuID);
       const updateResult = await menuModel.updateOne(
         { _id: menuID },
-        { name, price}
+        { name, price, category}
       );
   
       if (updateResult.modifiedCount > 0) {
@@ -97,12 +97,12 @@ const menuCreate = async (req: any, res: Response, next: NextFunction) => {
 
   const menuAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const getAllMenu = await menuModel.find({});
+      const getAllMenu = await menuModel.find({}).populate('category');
       if (getAllMenu.length > 0) {
         return res.status(200).json(getAllMenu);
       } else {
         return res.status(404).json({ message: "No menu to show" });
-      }
+      } 
     } catch (error) {
       console.log("Error: ", error);
       return res.status(403).json({message: "Error"});
@@ -113,7 +113,7 @@ const menuCreate = async (req: any, res: Response, next: NextFunction) => {
 
     const menuID = req.params.id;
 
-    const findMenu = await menuModel.findById(menuID);
+    const findMenu = await menuModel.findById(menuID).populate('category');
 
     if(!findMenu)
       {
