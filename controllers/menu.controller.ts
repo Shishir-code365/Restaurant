@@ -45,12 +45,12 @@ const menuCreate = async (req: any, res: Response, next: NextFunction) => {
 
   const menuUpdate = async (req: any, res: Response, next: NextFunction) => {
     try {
-      const { name, price, category} = req.body;
+      const { name, price, category,imageURL} = req.body;
       const menuID = req.params.menuID;
         // console.log(menuID);
       const updateResult = await menuModel.updateOne(
         { _id: menuID },
-        { name, price, category}
+        { name, price, category,imageURL}
       );
   
       if (updateResult.modifiedCount > 0) {
