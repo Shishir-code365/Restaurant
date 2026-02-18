@@ -1,3 +1,4 @@
+//User Model
 import mongoose, { model } from "mongoose";
 
 type userTypes = {

@@ -1,3 +1,4 @@
+//AboutUs model
 import mongoose, {model} from "mongoose";
 
 

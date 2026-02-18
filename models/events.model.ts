@@ -1,3 +1,4 @@
+//Event Model
 import mongoose, {model} from "mongoose";
 
 export type eventType = {

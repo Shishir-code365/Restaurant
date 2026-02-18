@@ -1,3 +1,4 @@
+//Reservation Model
 import mongoose,{model} from "mongoose"
 
 type reservationsType = {

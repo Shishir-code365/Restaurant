@@ -1,4 +1,4 @@
-
+//Category Model
 import mongoose,{model} from "mongoose"
 
 export type categoryType = {

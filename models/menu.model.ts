@@ -1,3 +1,4 @@
+//Menu Model
 import mongoose, { Schema, model } from "mongoose";
 import { categoryModel } from "./category.model";
 type menuType = {

@@ -1,3 +1,4 @@
+//Contact Model
 import mongoose, { model, mongo } from "mongoose";
 
 export type contactType = {
