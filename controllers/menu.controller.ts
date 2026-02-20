@@ -1,3 +1,4 @@
+//menu
 import { Request,Response,NextFunction } from "express";
 import { adminModel } from "../models/admin.model";
 import { menuModel } from "../models/menu.model";
