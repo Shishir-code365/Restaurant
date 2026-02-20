@@ -1,3 +1,4 @@
+//reservation route
 import { Router } from "express";
 import {tokenExtractor,verifyToken,adminScope}from "../middleware/tokenAuth";
 import { reservation,getAllReservation, deleteReservation, adminApprove, approvedReservations, updateReservation } from "../controllers/reservations.controller";

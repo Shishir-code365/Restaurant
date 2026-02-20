@@ -1,3 +1,4 @@
+//event route
 import { Router } from "express";
 import { createEventPromotion, eventDelete, eventUpdate, getAllEventPromotions, getEventPromotionById } from "../controllers/events.controller";
 import { tokenExtractor, verifyToken,adminScope } from "../middleware/tokenAuth";

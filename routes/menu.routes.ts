@@ -1,3 +1,4 @@
+//menu route
 import { Router } from "express";
 import { adminScope, tokenExtractor, verifyToken } from "../middleware/tokenAuth";
 import { menuCreate,menuUpdate,menuDelete, menuAll, menubyID } from "../controllers/menu.controller";

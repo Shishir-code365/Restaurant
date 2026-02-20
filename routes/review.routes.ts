@@ -1,3 +1,4 @@
+//review route
 import { Router } from "express";
 import { deleteReview, getAllReviews, getReviewById, reviewCreate,updateReview } from "../controllers/review.controller";
 import { tokenExtractor,verifyToken } from "../middleware/tokenAuth";

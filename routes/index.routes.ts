@@ -1,3 +1,4 @@
+//index route
 import { Router } from "express";
 import adminRouter from "./admin.routes";
 import userRouter from "./user.routes";

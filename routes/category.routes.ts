@@ -1,4 +1,4 @@
-
+//category route
 import {Router} from "express";
 import { tokenExtractor, verifyToken } from "../middleware/tokenAuth";
 import { createCategory, getAllCategories, getCategoryById, updateCategory, deleteCategory } from "../controllers/category.controller";
