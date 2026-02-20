@@ -1,3 +1,4 @@
+//events
 import { Request,Response,NextFunction, } from "express";
 import { eventModel } from "../models/events.model";
 
