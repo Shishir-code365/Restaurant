@@ -1,3 +1,4 @@
+//aboutus route
 import { Router } from "express";
 import { aboutusCreate, aboutusDelete, aboutusUpdate, getAboutUs } from "../controllers/aboutus.controller";
 import { tokenExtractor, verifyToken,adminScope } from "../middleware/tokenAuth";
